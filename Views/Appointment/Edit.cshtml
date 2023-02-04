@@ -1,0 +1,103 @@
+﻿@model ProiectAnaliza.Models.Appointment
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleAppointmentCreate.css" media="screen" />
+</head>
+
+
+
+<div id="container">
+    <!--This is a division tag for body container-->
+    <div id="body_header">
+        <!--This is a division tag for body header-->
+        <br />
+        <h1>Doresti sa editezi programarea?</h1>
+        <br />
+        <br />
+    </div>
+    <div class="formular">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+
+            <h2>Detalii programare</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.AppointmentId)
+
+
+
+            <label>Nume antrenor</label>
+
+            @Html.DropDownList("CoachId", String.Empty)
+            @Html.ValidationMessageFor(model => model.CoachId)
+
+
+
+            <label>Data programarii:</label>
+
+            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+
+            <br />
+            <label>Ora programarii:</label>
+
+            @Html.DropDownList("TimeBlockHelper", String.Empty)
+            @Html.ValidationMessageFor(model => model.Time)
+
+
+
+            <button type="submit" name="Save">Finalizeaza</button>
+
+
+        }
+        @if (User.IsInRole("Admin"))
+        {
+            <button onclick="location.href='@Url.Action("Index", "Appointment")'" class="inapoi">Inapoi</button>
+        }
+        else
+        {
+            <button onclick="location.href='@Url.Action("Detalii", "Appointment")'" class="inapoi">Inapoi</button>
+        }
+    </div>
+    </div>
+
+
+        @section Scripts {
+            @Scripts.Render("~/bundles/jqueryval")
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('#TimeBlockHelper').append($("<option></option>").val("placeholder").text("Selecteaza Antrenorul si Data"));
+                    $('#TimeBlockHelper').val("placeholder");
+                    $("#TimeBlockHelper").prop("disabled", true);
+                    $("#Date, #CoachId").change(function () {
+                        if ($("#CoachId").val() != "" && $("#Date").val() != "") {
+                            var options = {};
+                            options.url = "/Appointment/GetAvailableAppointments";
+                            options.type = "POST";
+                            options.data = JSON.stringify({ coachId: $("#CoachId").val(), Date: $("#Date").val() });
+                            options.dataType = "json";
+                            options.contentType = "application/json";
+                            options.success = function (data) {
+                                data = $.map(data, function (item, a) {
+                                    return "<option value=" + item.Value + ">" + item.Text + "</option>";
+                                });
+
+                                $("#TimeBlockHelper").html(data.join(""));
+                                $("#TimeBlockHelper").prop("disabled", false);
+                            };
+                            options.error = function () { alert("Eroare!"); };
+                            $.ajax(options);
+                        }
+                        else {
+                            $("#TimeBlockHelper").empty();
+                            $('#TimeBlockHelper').append($("<option></option>").val("placeholder").text("Selecteaza Antrenorul si Data"));
+                            $('#TimeBlockHelper').val("placeholder");
+                            $("#TimeBlockHelper").prop("disabled", true);
+                        }
+                    });
+                    $('#CoachId').trigger('change');
+                });
+            </script>
+        }

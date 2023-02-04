@@ -1,0 +1,75 @@
+﻿@model ProiectAnaliza.Models.Product
+
+@{
+    ViewBag.Title = "Delete";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleAppointmentCreate.css" media="screen" />
+</head>
+
+<div id="container">
+    
+    <div id="body_header">
+       
+        <br /><br />
+        <h1>Ești sigur că dorești să ștergi acest produs?</h1>
+        <br />
+    </div>
+    <div class="formular">
+
+        <div>
+            <img src="~/Content/ProductImages/@Html.DisplayFor(model => model.Image)" height="200px" class="poza" />
+        </div>
+        <br />
+
+        <label><b>Nume produs:</b></label>
+
+        @Html.DisplayFor(model => model.Name)
+
+        <br /><br />
+
+
+        <label><b>Descriere:</b></label>
+
+        @Html.DisplayFor(model => model.Description)
+
+        <br /><br />
+
+
+        <label><b>Preț:</b></label>
+
+        @Html.DisplayFor(model => model.Price) lei
+
+        <br /><br />
+
+
+        <label><b>Categorie:</b></label>
+
+        @Html.DisplayFor(model => model.Category)
+        <br /><br />
+
+
+
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <button type="submit" value="Delete">Șterge</button>
+                <br />
+
+            </div>
+        }
+        <button onclick="location.href='/Product/Index'" class="inapoi">Înapoi</button>
+
+
+
+
+    </div>
+</div>
+
+
+
+
+

@@ -1,0 +1,27 @@
+﻿@model IEnumerable<ProiectAnaliza.Models.ProductCategory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleListaCategorii.css" media="screen" />
+</head>
+
+<h2 id="titluCateg">Categorii de produse</h2>
+
+
+
+
+@foreach (var item in Model)
+{
+    <p class="numeCategorie">@item.Category</p>
+    <a class="btn btn-success" href="/ProductCategory/Edit/@item.Id">Editare categorie</a>
+    <a class="btn btn-success" href="/ProductCategory/Delete/@item.Id">Ștergere categorie</a>
+    <br />
+    <hr />
+    <br />
+}
+
+<br />
+<a class="btn btn-info" href="/ProductCategory/Create">Adaugă o nouă categorie</a>

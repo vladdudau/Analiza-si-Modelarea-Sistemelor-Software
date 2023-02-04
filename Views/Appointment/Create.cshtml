@@ -1,0 +1,97 @@
+﻿@model ProiectAnaliza.Models.Appointment
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleAppointmentCreate.css" media="screen" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="container">
+        <div id="body_header">
+            <br />
+            <h1>Creează o programare</h1>
+            <br />
+            <p>Mai ușor ca niciodată</p>
+            <br />
+        </div>
+        @using (Html.BeginForm("Create", "Appointment", FormMethod.Post, new { @class = "formular" }))
+        {
+
+            @Html.AntiForgeryToken()
+
+
+
+            <h2>Detalii programare</h2>
+
+            
+            
+
+            <label>Nume antrenor</label>
+
+            @Html.DropDownList("CoachId", "--Alege antrenor--")
+
+
+            <label>Data programarii:</label>
+           
+            <input class="text-box single-line valid" data-val="true" data-val-date="The field Data programarii must be a date." data-val-required="The Data programarii field is required." id="Date" name="Date" type="date" value="@DateTime.Today" aria-describedby="Date-error" aria-invalid="false">
+            <br /><br />
+
+            <label>Ora programării:</label>
+
+            @Html.DropDownList("TimeBlockHelper", String.Empty)
+
+
+
+
+
+            <button type="submit">Finalizează</button>
+
+        }
+    </div>
+</body>
+
+
+
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#TimeBlockHelper').append($("<option></option>").val("placeholder").text("Selecteaza Antrenorul si Data"));
+            $('#TimeBlockHelper').val("placeholder");
+            $("#TimeBlockHelper").prop("disabled", true);
+            $("#Date, #CoachId").change(function () {
+                if ($("#CoachId").val() != "" && $("#Date").val() != "") {
+                    var options = {};
+                    options.url = "/Appointment/GetAvailableAppointments";
+                    options.type = "POST";
+                    options.data = JSON.stringify({ coachId: $("#CoachId").val(), Date: $("#Date").val() });
+                    options.dataType = "json";
+                    options.contentType = "application/json";
+                    options.success = function (data) {
+                        data = $.map(data, function (item, a) {
+                            return "<option value=" + item.Value + ">" + item.Text + "</option>";
+                        });
+
+                        $("#TimeBlockHelper").html(data.join(""));
+                        $("#TimeBlockHelper").prop("disabled", false);
+                    };
+                    options.error = function () { alert("Eroare!"); };
+                    $.ajax(options);
+                }
+                else {
+                    $("#TimeBlockHelper").empty();
+                    $('#TimeBlockHelper').append($("<option></option>").val("placeholder").text("Selecteaza Antrenorul si Data"));
+                    $('#TimeBlockHelper').val("placeholder");
+                    $("#TimeBlockHelper").prop("disabled", true);
+                }
+            });
+            $('#CoachId').trigger('change');
+        });
+    </script>
+}

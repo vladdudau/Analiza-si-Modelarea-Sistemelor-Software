@@ -1,0 +1,47 @@
+﻿@model ProiectAnaliza.Models.Administration
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleAdministration.css" media="screen" />
+</head>
+<br />
+<br />
+<div>
+    <button onclick="location.href='@Url.Action("Index", "Administration")'" class="button">Inapoi la Index</button>
+</div>
+
+<div class="centru">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4 id="titluCateg">Editare ore de lucru</h4>
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ID)
+
+
+            <div class="nume">
+                @Html.DisplayFor(model => model.Name)
+                @Html.HiddenFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+            <br /><br />
+
+
+
+            <div>
+                @Html.EditorFor(model => model.Value)
+                @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div class="form-group">
+                <div>
+                    <input type="submit" value="Salveaza" class="buton" />
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

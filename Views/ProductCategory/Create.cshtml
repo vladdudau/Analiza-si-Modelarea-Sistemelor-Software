@@ -1,0 +1,26 @@
+﻿@model ProiectAnaliza.Models.ProductCategory
+
+@{
+    ViewBag.Title = "Create";
+}
+
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleCategory.css" media="screen" />
+</head>
+
+
+<div class="cover">
+    <h1>Adaugă categorie</h1>
+    <div class="flex-form">
+        @using (Html.BeginForm(actionName: "Create", controllerName: "ProductCategory"))
+        {
+            @Html.TextBox("Category", null, new { @class = "form-control" })
+            <button type="submit">Adaugă o noua categorie</button>
+        }
+    </div>
+
+</div>
+
+

@@ -1,0 +1,64 @@
+﻿@model ProiectAnaliza.Models.ProductManagerViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleAppointmentCreate.css" media="screen" />
+</head>
+
+<div id="container">
+    <!--This is a division tag for body container-->
+    <div id="body_header">
+        <!--This is a division tag for body header-->
+        <br /><br />
+        <h1>Adaugă un nou produs</h1>
+        <br />
+    </div>
+    <div class="formular">
+        @using (Html.BeginForm("Create", "Product", FormMethod.Post, new { encType = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <label>Nume produs</label>
+
+            @Html.EditorFor(model => model.Product.Name)
+            @Html.ValidationMessageFor(model => model.Product.Name)
+            <br /><br />
+
+
+            <label>Descriere</label>
+
+            @Html.EditorFor(model => model.Product.Description)
+            @Html.ValidationMessageFor(model => model.Product.Description)
+            <br /><br />
+
+
+            <label>Preț</label>
+
+            @Html.EditorFor(model => model.Product.Price)
+            @Html.ValidationMessageFor(model => model.Product.Price)
+            <br /><br />
+
+
+            <label>Categorie</label>
+
+            @Html.DropDownListFor(model => model.Product.Category, new SelectList(Model.ProductCategories, "Category", "Category"), new { htmlAtributes = new { @class = "form-control" } })
+
+
+
+            @Html.LabelFor(model => model.Product.Image)
+
+            <input type="file" id="file" name="file" class="form-control" />
+            <br /><br />
+
+
+            <button type="submit" value="Save">Adaugă</button>
+
+
+        }
+        <button onclick="location.href='/Product/Index'" class="inapoi">Înapoi</button>
+    </div>
+    </div>

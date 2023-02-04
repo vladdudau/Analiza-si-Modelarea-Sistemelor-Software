@@ -1,0 +1,98 @@
+﻿@model IEnumerable<ProiectAnaliza.Models.BasketItemView>
+@{
+    ViewBag.Title = "Basket";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/basketIndex.css" media="screen" />
+</head>
+
+<div class="main">
+    <br /><br />
+    <h1>Coș de cumpărături</h1>
+    <h2 class="sub-heading">Transport gratuit pentru sume mai mari de 100 de lei!</h2>
+    <br /><br />
+    <section class="shopping-cart">
+        <ol class="ui-list shopping-cart--list" id="shopping-cart--list">
+            @foreach (var item in Model)
+            {
+
+                <li class="_grid shopping-cart--list-item">
+                    <div class="_column product-image">
+                        <img class="product-image" src="~/Content/ProductImages//@item.Image" alt="Item image" />
+                    </div>
+                    <div class="_column product-info">
+                        <h4 class="product-name">@Html.DisplayFor(modelItem => item.ProductName)</h4>
+                        
+                        <div class="price product-single-price">@String.Format("{0:c}", item.Price)</div>
+                    </div>
+                    <div class="_column product-modifiers">
+                        <div class="_grid">
+                            <button class="_btn _column product-subtract" onclick="location.href='@Url.Action("RemoveFromBasketProduct", "Basket", new { Id = item.ProductId })'">&minus;</button>
+                            <div class="_column product-qty">@Html.DisplayFor(modelItem => item.Quantity)</div>
+
+                            <button class="_btn _column product-plus" onclick="location.href='@Url.Action("AddToBasket", "Basket", new { Id = item.ProductId })'">&plus;</button>
+                        </div>
+                        <button class="_btn entypo-trash product-remove" onclick="location.href='@Url.Action("RemoveFromBasket", "Basket", new { Id = item.Id })'">Șterge</button>
+                        <div class="price product-total-price">@String.Format("{0:c}", item.Price * item.Quantity)</div>
+                    </div>
+                </li>
+            }
+
+        </ol>
+
+        <footer class="_grid cart-totals">
+            <div class="_column subtotal" id="subtotalCtr">
+                <div class="cart-totals-key">Subtotal</div>
+                <div class="cart-totals-value">@String.Format("{0:c}", (from p in Model select p.Price * p.Quantity).Sum())</div>
+            </div>
+            <div class="_column shipping" id="shippingCtr">
+                <div class="cart-totals-key">Transport</div>
+                @{
+                    var y = (from p in Model select p.Price * p.Quantity).Sum();
+                    if (y > 100 || y == 0)
+                    {
+                        <div class="cart-totals-value">0.00 lei</div>
+                    }
+                    else
+                    {
+                        <div class="cart-totals-value">10.00 lei</div>
+                    }
+                }
+
+
+            </div>
+
+            <div class="_column total" id="totalCtr">
+                <div class="cart-totals-key">Total</div>
+                @{
+                    var x = (from p in Model select p.Price * p.Quantity).Sum();
+                    if (x > 100)
+                    {
+                        <div class="cart-totals-value">@String.Format("{0:c}", (from p in Model select p.Price * p.Quantity).Sum()) </div>
+                    }
+                    else
+                    {
+
+                        <div class="cart-totals-value">@String.Format("{0:c}", (from p in Model select p.Price * p.Quantity + 10).Sum()) </div>
+                    }
+                }
+
+            </div>
+            
+            <div class="_column checkout">
+                @{
+                    var z = (from p in Model select p.Price * p.Quantity).Sum();
+                    if (z > 0)
+                    {
+                        <button class="_btn checkout-btn entypo-forward" onclick="location.href='@Url.Action("Checkout", "Basket")'">Checkout</button>
+                    }
+
+                }
+            </div>
+            </footer>
+
+    </section>
+</div>
+
+
+
