@@ -1,0 +1,62 @@
+﻿body {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    background: url('https://t4.ftcdn.net/jpg/02/57/65/13/360_F_257651358_mgb0VrHgGqNSKNjiJSltEsaHhY35RtT4.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-size: cover;
+    background-size: cover;
+}
+#titluCateg {
+    color: #f2f2f2;
+    text-align: center;
+    padding-top: 30px;
+    font-family: 'Alfa Slab One', cursive;
+    font-size: 25px;
+    text-shadow: 3px 3px 7px black;
+}
+
+.numeCategorie {
+    color: white;
+    padding-top: 10px;
+    font-family: 'Amatic SC', cursive;
+    font-size: 28px;
+    letter-spacing: 4px;
+}
+
+span
+{
+    color:white;
+}
+
+
+.btn {
+    font-size: 13px;
+    margin-left: 25px;
+}
+
+#plic {
+    color: white;
+}
+
+.centru
+{
+    text-align:center;
+}
+
+.mersi
+{
+    text-align:center;
+    color:white;
+}
+
+.butonel {
+    background-color: #286090;
+    color: white;
+    border: 0;
+    padding: 14px 80px 14px 65px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+    border: 1px solid #cce7d0;
+    border-radius: 25px;
+}

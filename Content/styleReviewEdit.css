@@ -1,0 +1,31 @@
+﻿body {
+    background: url('https://t4.ftcdn.net/jpg/02/57/65/13/360_F_257651358_mgb0VrHgGqNSKNjiJSltEsaHhY35RtT4.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-size: cover;
+    background-size: cover;
+}
+#titluCateg {
+    color: #f2f2f2;
+    text-align: center;
+    padding-top: 30px;
+    font-family: 'Alfa Slab One', cursive;
+    font-size: 25px;
+    text-shadow: 3px 3px 7px black;
+} 
+
+.centru
+{
+    text-align:center;
+}
+
+textarea
+{
+    text-align:center;
+}
+.numeCategorie {
+    color: white;
+    padding-top: 10px;
+    font-family: 'Amatic SC', cursive;
+    font-size: 28px;
+    letter-spacing: 4px;
+}

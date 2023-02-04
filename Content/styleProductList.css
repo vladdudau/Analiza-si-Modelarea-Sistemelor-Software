@@ -1,0 +1,45 @@
+﻿body {
+    background: url('https://t4.ftcdn.net/jpg/02/57/65/13/360_F_257651358_mgb0VrHgGqNSKNjiJSltEsaHhY35RtT4.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-size: cover;
+    background-size: cover;
+}
+h2
+{
+    margin-top:60px;
+    text-align:center;
+    color:white;
+    font-size:35px;
+}
+.buton a {
+    background-color: #286090;
+    color: white;
+    border: 0;
+    padding: 14px 80px 14px 65px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+    border: 1px solid #cce7d0;
+    border-radius: 25px;
+    text-decoration:none;
+}
+
+table th,td
+{
+    color:white;
+}
+table td
+{
+    font-size:15px;
+    color:wheat;
+}
+.centru
+{
+    text-align:center;
+    color:wheat;
+}
+a
+{
+    text-decoration:none;
+}

@@ -1,0 +1,150 @@
+﻿body {
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    background: url('https://t4.ftcdn.net/jpg/02/57/65/13/360_F_257651358_mgb0VrHgGqNSKNjiJSltEsaHhY35RtT4.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-size: cover;
+    background-size: cover;
+}
+
+.atentionare {
+    color: white;
+}
+
+#antrenori {
+    text-align: center;
+}
+
+    #antrenori .pro-container {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 20px;
+        flex-wrap: wrap;
+    }
+
+    #antrenori .pro {
+        width: 23%;
+        min-width: 250px;
+        padding: 10px 12px;
+        border: 1px solid #cce7d0;
+        border-radius: 25px;
+        cursor: pointer;
+        box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+        margin: 15px 0;
+        transition: 0.2s ease;
+        position: relative;
+    }
+
+        #antrenori .pro:hover {
+            box-shadow: 20px 20px 30px rgb(255, 254, 254);
+        }
+
+        #antrenori .pro img {
+            width: 100%;
+            border-radius: 20px;
+            height: 419.88px;
+        }
+
+        #antrenori .pro .des {
+            text-align: start;
+            padding: 10px 0;
+        }
+
+            #antrenori .pro .des span {
+                color: wheat;
+                font-size: 14px;
+            }
+
+            #antrenori .pro .des h5 {
+                padding-top: 7px;
+                color: white;
+                font-size: 25px;
+            }
+
+.FinalRating {
+    font-size: 30px;
+    color: yellow;
+}
+
+
+#antrenori .pro .fav {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50px;
+    background-color: grey;
+    font-weight: 500;
+    color: red;
+    font-size: 30px;
+    text-decoration: none;
+    border: 1px solid #c8c8c8;
+    bottom: 20px;
+    right: 10px;
+    position: absolute;
+}
+
+#antrenori .pro a {
+    text-decoration: none;
+}
+
+.titlu {
+    color: white;
+}
+
+.butonas {
+    background-color: #286090;
+    color: white;
+    border: 0;
+    padding: 14px 80px 14px 65px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+    border: 1px solid #cce7d0;
+    border-radius: 25px;
+}
+
+.divSortsiFilter {
+    background-color: transparent;
+    margin-top: 50px;
+    height: 150px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 20px;
+}
+
+.titluAntrenori {
+    margin-top: 100px;
+    margin-left: 40%;
+    font-family: 'Raleway', sans-serif;
+}
+
+.allFilter {
+    margin-left: 100px;
+    margin-right: 100px;
+    color: white;
+    font-size: 18px;
+    font-family: 'Raleway', sans-serif;
+}
+
+.allSort {
+
+}
+
+.searchAsezare {
+    margin-left: 200px;
+    margin-top: -45px;
+    width: 300px !important;
+
+}
+
+.sortareAsezare {
+    margin-top: 30px;
+    margin-left: -50px;
+    font-size: 17px;
+}
+
+.selectSize {
+    height: 45px;
+    width: 200px;
+}
