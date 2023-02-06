@@ -1,0 +1,30 @@
+﻿@model ProiectAnaliza.Models.ProductCategory
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleCategoryDelete.css" media="screen" />
+</head>
+
+<div class="cover">
+    <h1>Ești sigur că vrei să ștergi această categorie?</h1>
+    <div class="flex-form">
+        <div>
+            @using (Html.BeginForm(actionName: "Delete", controllerName: "ProductCategory"))
+            {
+                @Html.AntiForgeryToken()
+                <input type="text" name="CategoryName" value="@Model.Category" required />
+
+                <button type="submit">Șterge categorie</button>
+
+            }
+            <button onclick="location.href='@Url.Action("Index", "ProductCategory")'" class="inapoi">Înapoi</button>
+        </div>
+
+    </div>
+</div>
+

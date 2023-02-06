@@ -1,0 +1,32 @@
+﻿@model ProiectAnaliza.Models.ProductCategory
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleCategoryEdit.css" media="screen" />
+</head>
+
+<div class="cover">
+    <h1>Editează categorie</h1>
+    <div class="flex-form">
+        <div>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control" } })
+
+                <button type="submit">Salvează</button>
+
+            }
+            <button onclick="location.href='@Url.Action("Index", "ProductCategory")'" class="inapoi">Înapoi</button>
+        </div>
+            
+    </div>
+</div>
+
