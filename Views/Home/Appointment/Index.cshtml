@@ -1,0 +1,49 @@
+﻿@model IEnumerable<ProiectAnaliza.Models.Appointment>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleAppointmentIndex.css" media="screen" />
+</head>
+<br />
+
+<h1><span class="white">Lista de progrămari</span></h1>
+<br />
+<br />
+    <table class="tabel">
+            <thead>
+                <tr>
+                    <th><h1> @Html.DisplayNameFor(model => model.Customer.Email)</h1></th>
+                    <th><h1>Antrenor</h1></th>
+                    <th><h1>@Html.DisplayNameFor(model => model.Date)</h1></th>
+                    <th><h1>Ora</h1></th>
+                    <th><h1>Acțiuni </h1></th>
+                </tr>
+            </thead>
+       
+   
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Customer.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Coach.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Time)
+                        </td>
+                        <td>
+                            
+                            @Html.ActionLink("Detalii", "Details", new { id = item.AppointmentId }) |
+                            
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+   
+

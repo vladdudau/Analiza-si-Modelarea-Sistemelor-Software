@@ -1,0 +1,75 @@
+﻿
+@model ProiectAnaliza.Models.EditCustomerViewModel
+@{
+    ViewBag.Title = "Programările mele";
+}
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleOrder.css" media="screen" />
+</head>
+<div class="centru">
+    <br /><br />
+    <button class="butonas" onclick="location.href='/Appointment/Create'">Crează o programare la un antrenor</button>
+    <h2 id="titluCateg">Programările mele:@String.Format("{0}", (from p in Model.Appointments select p.AppointmentId).Count())</h2>
+    <img src="~/Content/Images/flamenco-uploading.PNG" class="imagine" />
+</div>
+
+<table class="tabel">
+    <tr>
+        <th>
+            Email
+        </th>
+        <th>
+            Antrenor
+        </th>
+        <th>
+            Data
+        </th>
+        <th>
+            Ora
+        </th>
+
+        <th>Actiuni</th>
+    </tr>
+
+    @foreach (var item in Model.Appointments)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Email)
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.Coach.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+
+            <td>
+                @if (item.Date.Date.Add(item.Time.TimeOfDay).CompareTo(DateTime.Now) >= 0)
+                {
+                    @Html.ActionLink("Editează |", "Edit", new { id = item.AppointmentId })
+
+                }
+                @Html.ActionLink("Detalii |", "Details", new { id = item.AppointmentId })
+               
+                    @Html.ActionLink("Șterge", "Delete", new { id = item.AppointmentId })
+                
+                </td>
+        </tr>
+    }
+</table>
+
+
+
+
+
+
+

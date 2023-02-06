@@ -1,0 +1,33 @@
+﻿@model ProiectAnaliza.Models.Appointment
+
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleAppointmentDetails.css" media="screen" />
+</head>
+<div class="card">
+    <nav>
+        <h2 id="sigur">Esti sigur ca vrei sa stergi?</h2>
+    </nav>
+    <div class="photo">
+        <img src="~/Files/@Model.Coach.FileName" alt="@Model.Coach.FileName" />
+    </div>
+    <div class="description">
+        <h2>Coach: @Html.DisplayFor(model => model.Coach.Name)</h2>
+        <br />
+        <h4>Cursant:  @Html.DisplayFor(model => model.Customer.Email)</h4>
+        <h1>Data:  @Html.DisplayFor(model => model.Date)</h1>
+        <p> Ora : @Html.DisplayFor(model => model.Time)</p>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input class="butoane" type="submit" value="Delete" /> 
+            
+            <input class="butoane" type="button" value="Inapoi"  href="javascript:void(0);" onclick="history.go(-1);" />
+
+        </div>
+        }
+    </div>
+</div>
