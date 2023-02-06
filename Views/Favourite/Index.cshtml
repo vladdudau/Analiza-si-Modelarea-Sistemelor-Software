@@ -1,0 +1,66 @@
+
+@model ProiectAnaliza.Models.Coach
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Favourite";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleFavorite.css" media="screen" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100&display=swap" rel="stylesheet">
+</head>
+
+
+<section class="bg-light py-10">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+            <br />
+            <br />
+            <h3 class="mb-0 titlu" style="color:white;text-align:center";>Antrenori favoriți</h3>
+        </div>
+        <hr class="mb-4">
+        @foreach (var coach in ViewBag.Coaches)
+        {
+            if (coach.Approved)
+            {
+                <div class="card post-preview post-preview-featured lift mb-5">
+                    <div class="row no-gutters">
+                        
+                            <img src="~/Files/@coach.FileName" alt="@coach.FileName" height="200px" />
+                       
+                        <div class="col-lg-7">
+                            <div class="card-body">
+                                <div class="pb-5">
+                                    <a class="text-dark" href="/Coach/Show/@coach.Id"><h1>@coach.Name</h1></a>
+                                    <div class="rating-box">
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            if (i <= coach.FinalRating)
+                                            {
+                                                <i class="glyphicon glyphicon-star text-warning"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="glyphicon glyphicon-star-empty"></i>
+                                            }
+                                        }
+                                    </div>
+                                    <p class="titlu" style="color:white">@coach.Content</p>
+                                    <span class="titlu" style="color:white"> @coach.Age ani</span>
+                                    <br /><span class="titlu" style="color:wheat";>@coach.Category.CategoryName</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <hr class="mb-4">
+                <br />
+            }
+        }
+        <br />
+        <div class="text-center"><a class="btn btn-danger btn-marketing rounded-pill" href="/Favourite/Empty"><span class="glyphicon glyphicon-trash"></span>&nbsp; Goleste lista</a></div>
+
+    </div>
+</section>
