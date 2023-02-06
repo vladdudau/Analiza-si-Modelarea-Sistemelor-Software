@@ -1,0 +1,172 @@
+﻿@model ProiectAnaliza.Models.Coach
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Show";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleCoachShow.css" media="screen" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100&display=swap" rel="stylesheet">
+</head>
+
+@if (TempData.ContainsKey("message"))
+{
+    <br /><br />
+    <div class="alert alert-success">
+        @ViewBag.message
+    </div>
+}
+<br />
+<br />
+<button class="normal1" onclick="location.href='/Coach/Index'"> Înapoi la lista de antrenori</button>
+
+<section id="prodetails" class="section-p1">
+    <div class="single-pro-image">
+        <img src="~/Files/@ViewBag.FileName" width="100%" id="MainImg" alt="@ViewBag.FileName" />
+    </div>
+    <div class="single-pro-details">
+        <h6 id="Categ">Categorie: @ViewBag.Category.CategoryName</h6>
+        <h4 id="nume">Nume antrenor: @ViewBag.Coach.Name</h4>
+        <h2>Vârsta: @ViewBag.Coach.Age ani</h2>
+        @if (ViewBag.Coach.FinalRating == 1)
+        {
+            <p class="FinalRating" style="font-size: 30px; color: yellow;">&#9733;&#9734;&#9734;&#9734;&#9734;</p>
+        }
+        else if (@ViewBag.Coach.FinalRating == 2)
+        {
+            <p class="FinalRating" style="font-size: 30px; color: yellow;">&#9733;&#9733;&#9734;&#9734;&#9734;</p>
+        }
+        else if (@ViewBag.Coach.FinalRating == 3)
+        {
+            <p class="FinalRating" style="font-size: 30px; color: yellow;">&#9733;&#9733;&#9733;&#9734;&#9734;</p>
+        }
+        else if (@ViewBag.Coach.FinalRating == 4)
+        {
+            <p class="FinalRating" style="font-size: 30px; color: yellow;">&#9733;&#9733;&#9733;&#9733;&#9734;</p>
+        }
+        else if (@ViewBag.Coach.FinalRating == 5)
+        {
+            <p class="FinalRating" style="font-size: 30px; color: yellow;">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+        }
+        else if (@ViewBag.Coach.FinalRating == 0)
+        {
+            <p class="FinalRating" style="font-size: 30px; color: yellow;">&#9734;&#9734;&#9734;&#9734;&#9734;</p>
+        }
+
+        <button class="normal" onclick="location.href='/Coach/Availability/@ViewBag.Coach.Id'">Verifică disponibilitatea</button>
+
+        <h4 id="descriere">Scurtă descriere</h4>
+        <span >@ViewBag.Coach.Content</span>
+        <br />
+        <br />
+
+
+    </div>
+
+</section>
+
+
+@*<form class="float-right" method="post" action="/Favourite/New/@ViewBag.Coach.Id">
+        <button type="submit" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-shopping-cart"></i> &nbsp;Adauga la favorite</button>
+    </form>
+*@
+<hr />
+@if (@ViewBag.Coach.UserId == User.Identity.GetUserId() )
+{
+
+    <a class="btn btn-success" href="/Coach/Edit/@ViewBag.Coach.Id">Modifica postare</a>
+}
+@if (@ViewBag.Coach.UserId == User.Identity.GetUserId() || User.IsInRole("Admin"))
+{
+    <form method="post" action="/Coach/Delete/@ViewBag.Coach.Id">
+        @*@Html.HttpMethodOverride(HttpVerbs.Delete)*@
+        <input name="X-HTTP-Method-Override" type="hidden" value="DELETE" />
+        <button class="btn btn-danger" type="submit">Șterge postare</button>
+        <hr />
+    </form>
+}
+
+<h1 id="comentarii">Secțiunea de comentarii</h1>
+<hr />
+@foreach (var rev in ViewBag.Coach.Reviews)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div>
+                    <p><span style="color:wheat">Comentariu adăugat de: </span>@rev.User.UserName</p>
+                    <p>@rev.Content</p>
+                    @if (rev.Rating == 1)
+                    {
+                        <p>&#9733;&#9734;&#9734;&#9734;&#9734;</p>
+                    }
+                    else if (rev.Rating == 2)
+                    {
+                        <p>&#9733;&#9733;&#9734;&#9734;&#9734;</p>
+                    }
+                    else if (rev.Rating == 3)
+                    {
+                        <p>&#9733;&#9733;&#9733;&#9734;&#9734;</p>
+                    }
+                    else if (rev.Rating == 4)
+                    {
+                        <p>&#9733;&#9733;&#9733;&#9733;&#9734;</p>
+                    }
+                    else if (rev.Rating == 5)
+                    {
+                        <p>&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+                    }
+                    
+                    <small style="color:wheat">@rev.Date</small>
+                </div>
+
+                @if (rev.UserId == User.Identity.GetUserId() || User.IsInRole("Editor") || User.IsInRole("Admin"))
+                {
+                    <div style="display: inline-block; float : left; margin-right: 15px">
+                        <a class="glyphicon glyphicon-pencil" href="/Review/Edit/@rev.ReviewId"></a>
+                    </div>
+                    <div style="display: inline-block; float : left">
+                        <form method="post" action="/Review/Delete/@rev.ReviewId">
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <button class="glyphicon glyphicon-trash" style="border: none; background: transparent; color: red;" type="submit"></button>
+                        </form>
+                    </div>
+                }
+
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <hr />
+}
+
+@if (User.IsInRole("User") || User.IsInRole("Editor") || User.IsInRole("Admin"))
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                <div class="panel">
+                    <form method="post" action="/Coach/Show/@ViewBag.Coach.Id">
+                        <div class="panel-body" style="background-color: #1f1f1f;">
+                            <input  type="hidden" name="CoachId" value="@ViewBag.Coach.Id" />
+                            <label>Conținut review</label>
+                            <br />
+                            <input id="choose" name="Content" required>
+                            <br />
+                            <label for="rating">Cat de mult iți place acest antrenor ? (1-5):</label>
+                            <br />
+                            <input type="number" name="Rating" min="1" max="5" />
+                            <br /><br />
+                            <button class="btn btn-success " type="submit">Adaugă review</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+}

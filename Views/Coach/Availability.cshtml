@@ -1,0 +1,102 @@
+﻿@model ProiectAnaliza.Models.Appointment
+@{
+    /**/
+
+    ViewBag.Title = "Coach Availability";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleAppointmentCreate.css" media="screen" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100&display=swap" rel="stylesheet">
+</head>
+
+<div id="container">
+   
+    <div id="body_header">
+        
+        <br />
+        <h1 id="titlu">Dorești să verifici disponibilitatea unui antrenor?</h1>
+        <img class="imagine" style="height:200px" src="~/Content/Images/sammy-guy-doing-workout-with-truck-tire.PNG" />
+        
+    </div>
+    <div class="formular">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+
+            <h2>Detalii disponibilitate</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.AppointmentId)
+
+
+
+            <label>Nume antrenor</label>
+
+            @Html.Label((string)ViewBag.CoachName, new { @class = "antrenor" })
+
+
+
+
+            <label>Data programării:</label>
+
+            <input class="text-box single-line valid" data-val="true" data-val-date="The field Data programarii must be a date." data-val-required="The Data programarii field is required." id="Date" name="Date" type="date" value="@DateTime.Today" aria-describedby="Date-error" aria-invalid="false">
+
+            @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+
+            <br />
+            <label>Ore disponibile:</label>
+
+            @Html.DropDownList("TimeBlockHelper", String.Empty)
+            @Html.ValidationMessageFor(model => model.Time)
+
+           
+        }
+        <button onclick="location.href='/Appointment/Create'">Programare</button>
+        <button onclick="location.href='/Coach/Show/@Model.CoachId'" class="inapoi">Înapoi</button>
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#TimeBlockHelper').append($("<option></option>").val("placeholder").text("Selectează data și ora"));
+            $('#TimeBlockHelper').val("placeholder");
+            $("#TimeBlockHelper").prop("disabled", true);
+            $("#Date").change(function () {
+                if ($("#Date").val() != "") {
+                    var options = {};
+                    options.url = "/Appointment/GetAvailableAppointments";
+                    options.type = "POST";
+                    options.data = JSON.stringify({ coachId: '@Model.CoachId', Date: $("#Date").val() });
+                    options.dataType = "json";
+                    options.contentType = "application/json";
+                    options.success = function (data) {
+                        data = $.map(data, function (item, a) {
+                            return "<option value=" + item.Value + ">" + item.Text + "</option>";
+                        });
+
+                        $("#TimeBlockHelper").html(data.join(""));
+                        $("#TimeBlockHelper").prop("disabled", false);
+                    };
+                    options.error = function () { alert("Error retrieving available appointments!"); };
+                    $.ajax(options);
+                }
+                else {
+                    $("#TimeBlockHelper").empty();
+                    $('#TimeBlockHelper').append($("<option></option>").val("placeholder").text("Select Date"));
+                    $('#TimeBlockHelper').val("placeholder");
+                    $("#TimeBlockHelper").prop("disabled", true);
+                }
+            });
+        });
+    </script>
+    }

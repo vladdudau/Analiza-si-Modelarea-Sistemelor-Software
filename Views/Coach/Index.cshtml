@@ -1,0 +1,139 @@
+﻿@model ProiectAnaliza.Models.Coach
+@{
+    ViewBag.Title = "Index";
+}
+@using Microsoft.AspNet.Identity;
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/stileCoaches.css" media="screen" />
+</head>
+
+@if (TempData.ContainsKey("message"))
+{
+    <br />
+    <br />
+    <div class="atentionare">@ViewBag.message</div>
+}
+
+
+<div class="container">
+    <div class="box"></div>
+</div>
+
+<div class="titluAntrenori">
+    <h2 class="titlu">Antrenorii noștri</h2>
+    @if (User.IsInRole("Editor") == false)
+    {
+        <p style="margin-left: -110px;" class="titlu">Daca doresti sa faci parte din echipa noastră, fă o cerere catre admin!</p>
+        <button style="margin-left: -20px;" class="butonas" onclick="location.href='@Url.Action("New", "Coach")'">Devino antrenor</button>
+    }
+    else if (User.IsInRole("Editor"))
+    {
+        <p style="margin-left: -110px;" class="titlu">Ești deja membru în echipa noastră de antrenori a acestei platforme!</p>
+        <button style="margin-left: -20px;" class="butonas" onclick="location.href='UpcomingAppointments/@User.Identity.GetUserId()'">Programări viitoare</button>
+    }
+</div>
+
+<div class="divSortsiFilter">
+    <div class="allFilter">
+        <h4>Filtrare pe categorii</h4>
+        <div class="list-group">
+            <form method="get" action="/Coach/Index" id="searchForm">
+                <select style="color: black;" name="filter" onchange="document.getElementById('searchForm').submit()">
+                    <option value="" style="color:black">Filtrează după</option>
+                    <option style="color: black;" value="All">@Html.ActionLink("All", "Index", null, new { })</option>
+
+                    @foreach (var cat in ViewBag.Categories)
+                    {
+
+                        String c = cat.CategoryName;
+                        <option style="color: black;" value="@c" @(ViewBag.filtru == c ? "selected" : "")>
+                            @Html.ActionLink(@c, "Index", new { Category = @cat.CategoryName }, new { })
+                        </option>
+                    }
+
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <div class="allSort">
+        <form method="get" action="/Coach/Index" id="sortForm">
+            <div class="input-group input-group-lg mb-5">
+
+                <div class="sortareAsezare input-group-prepend show">
+                    <select name="sort" class="selectSize btn btn-primary" onchange="document.getElementById('sortForm').submit()">
+                        <option value="" class="bg-white text-black">Sortează după</option>
+                        <option value="age-asc" @(ViewBag.sort == "age-asc" ? "selected" : "") class="bg-white text-black">Vârstă crescător</option>
+                        <option value="age-desc" @(ViewBag.sort == "age-desc" ? "selected" : "") class="bg-white text-black">Vârstă descrescător</option>
+                        <option value="rating-asc" @(ViewBag.sort == "rating-asc" ? "selected" : "") class="bg-white text-black">Rating crescător</option>
+                        <option value="rating-desc" @(ViewBag.sort == "rating-desc" ? "selected" : "") class="bg-white text-black">Rating descrescător</option>
+                    </select>
+                </div>
+
+                <input name="search" class="searchAsezare form-control" type="text" placeholder="Caută antrenori..." value="@ViewBag.search">
+
+            </div>
+        </form>
+    </div>
+
+</div>
+
+<section id="antrenori" class="sectiune-antrenori">
+
+    <div class="pro-container">
+        @foreach (var antrenor in ViewBag.Coaches)
+        {
+            if (antrenor.Approved)
+            {
+                <div class="pro" onclick="location.href='/Coach/Show/@antrenor.Id'">
+
+
+
+                    <img src="~/Files/@antrenor.FileName" alt="@antrenor.FileName" />
+
+                    <div class="des">
+                        <span>@antrenor.Category.CategoryName</span>
+
+                        <h5>@antrenor.Name (@antrenor.Age)</h5>
+
+                        <div class="star">
+                            @if (@antrenor.FinalRating == 1)
+                            {
+                                <p class="FinalRating">&#9733;&#9734;&#9734;&#9734;&#9734;</p>
+                            }
+                            else if (@antrenor.FinalRating == 2)
+                            {
+                                <p class="FinalRating">&#9733;&#9733;&#9734;&#9734;&#9734;</p>
+                            }
+                            else if (@antrenor.FinalRating == 3)
+                            {
+                                <p class="FinalRating" style="font-size: 30px; color: yellow;">&#9733;&#9733;&#9733;&#9734;&#9734;</p>
+                            }
+                            else if (@antrenor.FinalRating == 4)
+                            {
+                                <p class="FinalRating" style="font-size: 30px; color: yellow;">&#9733;&#9733;&#9733;&#9733;&#9734;</p>
+                            }
+                            else if (@antrenor.FinalRating == 5)
+                            {
+                                <p class="FinalRating" style="font-size: 30px; color: yellow;">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+                            }
+                            else if (@antrenor.FinalRating == 0)
+                            {
+                                <p class="FinalRating" style="font-size: 30px; color: yellow;">&#9734;&#9734;&#9734;&#9734;&#9734;</p>
+                            }
+                        </div>
+                    </div>
+                    <a href="/Favourite/New/@antrenor.Id"><p class="fav">&#10084;</p></a>
+
+
+                </div>
+            }
+        }
+    </div>
+</section>
+
+
+

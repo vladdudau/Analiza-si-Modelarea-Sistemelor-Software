@@ -1,0 +1,88 @@
+﻿@model IEnumerable<ProiectAnaliza.Models.Order>
+@{
+    ViewBag.Title = "Listă antrenori de aprobat";
+}
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="~/Content/styleCoachApprove.css" media="screen" />
+</head>
+
+
+@if (TempData.ContainsKey("message"))
+{
+    <br /><br />
+    <div class="alert alert-success">
+        @ViewBag.message
+    </div>
+}
+
+<section class="bg-light py-10">
+    <div class="container">
+        @if (TempData.ContainsKey("message"))
+        {
+            <br /><br />
+            <div class="alert alert-success">
+                @ViewBag.message
+            </div>
+        }
+        <br />
+        <div class="d-flex align-items-center justify-content-between">
+            <h3 class="mb-0 titlu">@ViewBag.Title </h3>
+           
+        </div>
+        <hr class="mb-4">
+        @foreach (var coach in ViewBag.Coaches)
+        {
+            if (!coach.Approved)
+            {
+                <div class="card post-preview post-preview-featured lift mb-5">
+                    <div class="row no-gutters">
+                        <div class="col-lg-5">
+                          
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="card-body">
+                                <div class="pb-5">
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <form class="float-right" method="post" action="/Coach/Delete/@coach.Id">
+                                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                                            
+                                            &nbsp;&nbsp;<button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> &nbsp;Sterge postare</button>
+                                        </form>
+                                    }
+                                    <a class="text-dark" href="/Coach/Show/@coach.Id"><h1>@coach.Name</h1></a>
+                                    <img src="~/Files/@coach.FileName" alt="@coach.FileName" height="200px" />
+                                    <br />
+                                    <br />
+                                  
+                                    <p class="titlu">@coach.Content</p>
+                                    <span class="titlu"><i class="glyphicon glyphicon-bitcoin titlu"></i> &nbsp;Varsta: @coach.Age ani</span>
+                                    <br /><span class="titlu"><i class="glyphicon glyphicon-globe titlu"></i> &nbsp;Categorie: @coach.Category.CategoryName</span>
+                                </div>
+                                <div class=" row">
+                                 <br />
+                                    <div class="col-md-6">
+                                        <form class="float-right" method="post" action="/Coach/Approve/@coach.Id">
+                                            <button type="submit" class="btn btn-success btn-sm"><i class="glyphicon glyphicon-ok"></i> &nbsp;Aprobă antrenor</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr class="mb-4">
+            }
+        }
+        <br />
+       
+    </div>
+</section>
+
+
+
+

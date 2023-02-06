@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleAppointmentCreate.css" media="screen" />
+</head>
+
+@if (TempData.ContainsKey("message"))
+{
+    <br /><br />
+    <div class="alert alert-success">
+        @ViewBag.message
+    </div>
+}
+
+<div id="container">
+   
+    <div id="body_header">
+       
+        <br />
+        <h1>Doresti sa editezi antrenorul?</h1>
+        
+    </div>
+    <div class="formular">
+        <form method="post" action="/Coach/Edit/@ViewBag.Coach.Id">
+            @Html.HttpMethodOverride(HttpVerbs.Put)
+
+
+            <h2>Detalii antrenor</h2>
+            <hr />
+            @Html.Label("Name", "Nume antrenor")
+            <input type="text" name="Name" value="@ViewBag.Coach.Name" required />
+
+            <br /> <br />
+            @Html.Label("Age", "Varsta")
+            @*<label class="numeProd">Pret produs</label>*@
+            <input type="number" name="Age" required value="@ViewBag.Coach.Age" />
+            <br /> <br />
+
+
+
+            @Html.Label("Content", "Descriere antrenor")
+
+
+            <input type="text" name="Content" value="@ViewBag.Coach.Content" required />
+            <br /> <br />
+            <label>Categorie</label>
+
+            <select name="CategoryId">
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option @{ if (category.CategoryId == ViewBag.Category.CategoryId) { @: selected="selected"
+                            } }
+                            value="@category.CategoryId">
+                        @category.CategoryName
+                    </option>
+                }
+            </select>
+
+
+            @Html.Label("DisableNewAppointments", "Blocheaza programari")
+            <select name="DisableNewAppointments" value="@ViewBag.Coach.DisableNewAppointments">
+                <option value="true" selected="selected">Yes</option>
+                <option value="false">No</option>
+            </select>
+
+            <button type="submit" name="Save">Finalizeaza</button>
+
+
+        </form>
+        <button onclick="location.href='/Coach/Index'" class="inapoi">Inapoi</button>
+    </div>
+</div>
+

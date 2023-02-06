@@ -1,0 +1,76 @@
+﻿
+@model ProiectAnaliza.Models.Coach
+@{
+    ViewBag.Title = "Upcoming Appointments";
+}
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleOrder.css" media="screen" />
+</head>
+
+
+<div class="centru">
+    <br /><br />
+    <h2 id="titluCateg">Programări viitoare</h2>
+    <img src="~/Content/Images/flamenco-uploading.PNG" class="imagine" />
+
+    @using (Html.BeginForm())
+    {
+        @Html.TextBox("SearchString")
+        <input type="submit" value="Caută cursant" placeholder="Caută cursant" />
+    }
+</div>
+
+
+
+<br />
+<table class="tabel">
+    <tr>
+        <th>
+            Email
+        </th>
+        <th>
+            Antrenor
+        </th>
+        <th>
+            Data
+        </th>
+        <th>
+            Ora
+        </th>
+
+        <th>Actiuni</th>
+    </tr>
+
+    @foreach (var item in Model.Appointments)
+    {
+        if (item.Date.Date.Add(item.Time.TimeOfDay).CompareTo(DateTime.Now) >= 0)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.Email)
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.Coach.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Time)
+            </td>
+
+            <td>
+
+                @Html.ActionLink("Șterge", "Details", new { Controller = "Appointment", Action = "Details", id = item.AppointmentId }) 
+            </td>
+        </tr>
+        }
+    }
+</table>
+
+

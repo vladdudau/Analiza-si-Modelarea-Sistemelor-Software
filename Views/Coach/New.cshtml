@@ -1,0 +1,115 @@
+﻿@model ProiectAnaliza.Models.Coach
+@{
+    ViewBag.Title = "New";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleAppointmentCreate.css" media="screen" />
+</head>
+
+
+@if (TempData.ContainsKey("message"))
+{
+    <br /><br />
+    <div class="alert alert-success">
+        @ViewBag.message
+    </div>
+}
+
+
+    <div id="container">
+        <!--This is a division tag for body container-->
+        <div id="body_header">
+            <!--This is a division tag for body header-->
+            <br />
+            <h1>Dorești să devii antrenor?</h1>
+
+        </div>
+        <div class="formular">
+            @using (Html.BeginForm("New", "Coach", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                @Html.Label("Name", "Nume antrenor")
+                @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+
+
+                <input type="text" name="Name" required />
+                <br /> <br />
+
+                @Html.Label("Content", "Descriere antrenor")
+
+                <input type="text" name="Content" required />
+                <br /> <br />
+
+
+                <label>Vârsta</label>
+
+                <input type="number" name="Age" required />
+                @Html.ValidationMessage("Age", null, new { @class = "text-danger" })
+                <br /> <br />
+
+
+
+
+                <label>Selectați tip antrenor</label>
+
+                <select name="CategoryID">
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <option value="@category.CategoryId">@category.CategoryName</option>
+                    }
+                </select>
+
+
+                <label>Alege o poza</label>
+
+                <input type="file" name="Image" class="form-control" required />
+                <br /> <br />
+                <button name="total" value="Adauga antrenor" type="submit">Adaugă antrenor</button>
+
+
+            }
+            <button onclick="location.href='/Coach/Index'" class="inapoi">Înapoi</button>
+        </div>
+    </div>
+
+
+
+
+
+@*@using (Html.BeginForm("New", "Coach", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    
+    @Html.Label("Name", "Nume antrenor");
+    @Html.ValidationMessageFor(m => m.Name, "" , new {@class = "text-danger"} )
+    
+    <br />
+    <input type="text" name="Name" required />
+    <br />
+    @Html.Label("Content", "Descriere antrenor")
+    <br />
+    <textarea name="Content" required></textarea>
+    <br />
+    <label>Varsta</label>
+    <br />
+    <input type="numer" name="Age" required />
+    @Html.ValidationMessage("Age", null, new { @class = "text-danger"})
+    <br />
+    <label>Selectati tip antrenor</label>
+    <br />
+    <select name="CategoryID">
+        @foreach(var category in ViewBag.Categories)
+        {
+            <option value="@category.CategoryId">@category.CategoryName</option>
+        }
+    </select>
+    <br />
+    <label>Alege o poza</label>
+    <br />
+    <input type="file" name="Image" required />
+    <br />
+    <button class="btn btn-success" name="total" value="Adauga antrenor" type="submit">Adauga antrenor</button>
+}*@
+
