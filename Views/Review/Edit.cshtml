@@ -1,0 +1,27 @@
+
+@{
+    ViewBag.Title = "Edit";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleReviewEdit.css" media="screen" />
+</head>
+<h2 id="titluCateg">Editare review</h2>
+<br />
+
+
+<div class="centru">
+    <img class="imagine" style="height:175px" src="~/Content/Images/casual-life-3d-close-up-of-pink-dumbbell.PNG" />
+    <form method="post" action="/Review/Edit/@ViewBag.Review.ReviewId">
+        @Html.HttpMethodOverride(HttpVerbs.Put)
+        <label class="numeCategorie">
+            Continut review</label>
+            <br />
+            <textarea name="Content" required>@ViewBag.Review.Content</textarea>
+            <br />
+            <label class="numeCategorie" for="rating">Cât de mult iți place acest antrenor? (1-5):</label>
+            <br />
+            <input type="number" name="Rating" min="1" max="5" style="color:black" />
+            <br /><br />
+            <button class="btn btn-success" type="submit">Editează review</button>
+    </form>
+</div>
