@@ -1,0 +1,86 @@
+﻿@using Microsoft.AspNet.Identity;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeverLoseYourHope</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/ico" href="~/Content/favicon.ico" />
+    <link rel="stylesheet" type="text/css" href="~/Content/styleLayout.css" media="screen" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="asezareNav navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <img style="margin-left: -280px; margin-top: 17px;" src="~/Content/Images/casual-life-3d-close-up-of-pink-dumbbell.PNG" height="40" width="70"/>
+                @Html.ActionLink("NeverLoseYourHope", "FirstPage", "Home", new { area = "" }, new { @class = "asezareSigla" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="toateButoanele nav navbar-nav">
+                    <li class="primuItem itemNav">@Html.ActionLink("Antrenori", "Index", "Coach")</li>
+                    <li class="itemNav">@Html.ActionLink("Produse", "Index", "Home")</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="itemNav">@Html.ActionLink("Admin", "Index", "Admin")</li>
+                        <li class="itemNav">@Html.ActionLink("Antrenori in așteptare", "Approve", "Coach")</li>
+                        <li class="itemNav">@Html.ActionLink("Utilizatori", "Index", "User")</li>
+                        <li class="itemNav">@Html.ActionLink("Programări", "Index", "Appointment")</li>
+                        <li class="itemNav">@Html.ActionLink("Comenzi", "Index", "Order")</li>
+                    }
+
+
+
+                    @if (User.IsInRole("Editor"))
+                    {
+
+                        <li class="itemNav">@Html.ActionLink("Programări viitoare", "UpcomingAppointments", new { Controller = "Coach", Action = "UpcomingAppointments", id = User.Identity.GetUserId() })</li>
+                        <li class="itemNav">@Html.ActionLink("Istoric programări", "History", new { Controller = "Coach", Action = "History", id = User.Identity.GetUserId() })</li>
+
+
+                    }
+                    @if (User.IsInRole("User") && User.IsInRole("Editor") == false)
+                    {
+                        <li class="itemNav">@Html.ActionLink("Programările mele", "Detalii", new { Controller = "Appointment", Action = "Detalii" })</li>
+                        <li class="itemNav">@Html.ActionLink("Favorite", "Index", "Favourite")</li>
+
+                    }
+                    @if (User.IsInRole("User") || User.IsInRole("Editor"))
+                    {
+
+                        <li class="itemNav">@Html.ActionLink("Comenzile mele", "Detalii", new { Controller = "Order", Action = "Detalii" })</li>
+
+                    }
+                    <li class="itemNav">@Html.ActionLink("Despre", "About", "Home")</li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+                @{
+                    if (User.IsInRole("User") || User.IsInRole("Editor") )
+                        {
+                            Html.RenderAction("BasketSummary", "Basket");
+                        }
+                    }
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
