@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Thank you";
+}
+
+@if (TempData.ContainsKey("message"))
+{
+    <br />
+    <br />
+    <div>@ViewBag.message</div>
+}
+    <head>
+        <link rel="stylesheet" type="text/css" href="~/Content/styleUser.css" media="screen" />
+    </head>
+
+    <div class="mersi">
+        <h2>Thank you,comanda ta a fost creata si urmeaza sa fie aprobata de admin</h2>
+        Thank you for your order. <br /><br />
+        Your Order Id = @ViewBag.OrderId
+    </div>
