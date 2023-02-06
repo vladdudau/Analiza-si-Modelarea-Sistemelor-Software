@@ -1,14 +1,17 @@
-﻿@model IEnumerable<ProiectAnaliza.Models.Order>
-
+﻿@model ProiectAnaliza.Models.EditCustomerViewModel
+@{
+    ViewBag.Title = "Comenzile mele";
+}
 
 <head>
     <link rel="stylesheet" type="text/css" href="~/Content/styleOrder.css" media="screen" />
 </head>
 <div class="centru">
-    <h2 id="titluCateg">Totalitatea comenzilor:@String.Format("{0}", (from p in Model select p.Id).Count())</h2>
-   
-    <img src="~/Content/Images/lagom-young-man-packing-or-unpacking-belongings-in-cardboard-box.PNG" />
+    <h2 id="titluCateg">Comenzile mele:@String.Format("{0}", (from p in Model.Orders select p.Id).Count())</h2>
+
+    <img src="~/Content/Images/mirage-order-completed.PNG" />
 </div>
+
 <table class="tabel">
     <tr>
         <th>
@@ -21,37 +24,34 @@
             Email
         </th>
         <th>
-            Status comandă
+            Status comanda
         </th>
-        
+
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Orders)
     {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.CreatedAt)
             </td>
             <td>
-               
+
                 @Html.DisplayFor(modelItem => item.SurName)
             </td>
-           
+
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-          
+
             <td>
                 @Html.DisplayFor(modelItem => item.OrderStatus)
             </td>
-           
+
             <td>
-                @Html.ActionLink("Schimbă status", "UpdateOrder", new { id = item.Id }) 
+                @Html.ActionLink("Vezi detalii", "UpdateOrder", new { id = item.Id })
             </td>
         </tr>
     }
-
 </table>
-
-

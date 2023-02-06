@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ProiectAnaliza.Models.OrderItem>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleUpdatedOrder.css" media="screen" />
+</head>
+<table class="table">
+    <tr>
+        <th>
+            Nume produs
+        </th>
+        <th>
+            Pret
+        </th>
+        <th>
+            Imagine
+        </th>
+        <th>
+           Cantitate
+        </th>
+        <th>Pret total produs</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            <img src="~/Content/ProductImages/@Html.DisplayFor(modelItem => item.Image)" style="height:100px" width="100px"; />
+        </td> 
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @String.Format("{0:c}", item.Price * item.Quantity)
+        </td>
+    </tr>
+}
+
+    <tr>
+        <td colspan="3" style="text-align:right">
+            <strong>Totalul comenzii</strong>
+        </td>
+        <td id="PretFinal">
+            @String.Format("{0:c}", (from p in Model select p.Quantity * p.Price).Sum())
+        </td>
+    </tr>
+
+</table>
