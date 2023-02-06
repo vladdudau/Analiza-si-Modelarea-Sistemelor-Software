@@ -1,0 +1,55 @@
+@model ProiectAnaliza.Models.IndexViewModel
+@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Profil";
+}
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleUser.css" media="screen" />
+</head>
+
+<h3 id="titluCateg">@ViewBag.Title</h3>
+
+
+
+<hr class="mb-4">
+<div class="centru">
+    <img class="imagine" style="height:250px" src="~/Content/Images/bubble-gum-man-having-workout-with-dumbbells.PNG" />
+    <div class="numeCategorie">Nume utilizator: @User.Identity.GetUserName()</div>
+
+    <div class="panel-body">
+
+        <i class="glyphicon glyphicon-envelope titlu" style="color:white"></i> <span class="titlu" style="margin-left: 5px; margin-right: 8px;">Id utilizator: </span><span class="label label-default">@User.Identity.GetUserId()</span>
+        <br /><br />
+        <i class="glyphicon glyphicon-th-list titlu" style="color:white"></i> <span class="titlu" style="margin-left: 5px; margin-right: 8px;">
+            Rol utilizator:
+            @if (User.IsInRole("Admin"))
+            {
+                <span>Admin</span>
+            }
+            else if (User.IsInRole("Editor"))
+            {
+                <span>Antrenor</span>
+            }
+            else
+            {
+                <span>User</span>
+            }
+
+        </span>
+
+        <br /><br />
+
+        @if (Model.HasPassword)
+        {
+            
+            <button onclick="location.href='/Manage/ChangePassword'" class="butonel">Schimbă parola</button>
+        }
+       
+
+
+    </div>
+</div>
