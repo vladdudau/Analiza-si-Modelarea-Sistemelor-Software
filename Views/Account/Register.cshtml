@@ -1,0 +1,83 @@
+﻿@model ProiectAnaliza.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Înregistreaza-te";
+}
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleRegister.css" media="screen" />
+</head>
+
+<br /><br />
+      <p class="tip">@ViewBag.Title</p>
+      <div class="cont">
+          <div class="form sign-in">
+              @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+              {
+                  @Html.AntiForgeryToken()
+                  <h2>Crează-ți un cont.</h2>
+                  <hr />
+                  @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                  <label>
+                      <span>Email</span>
+                      @Html.TextBoxFor(m => m.Email, new { @class = "input" })
+                  </label>
+
+                 
+
+                  
+                  <label>
+                      <span>Prenume</span>
+                      @Html.TextBoxFor(m => m.FirstName, new { @class = "input" })
+
+                  </label>
+
+                
+                  
+                  <label>
+                      <span>Nume</span>
+                      @Html.TextBoxFor(m => m.LastName, new { @class = "input" })
+
+                  </label>
+                  
+
+                  
+
+                  <label>
+                      <span>Parolă</span>
+                      @Html.PasswordFor(m => m.Password, new { @class = "input" })
+                  </label>
+                 
+                  <label>
+                      <span>Confirmă parola</span>
+                      @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "input" })
+                  </label>
+
+                  <br />
+
+                  <input type="submit" id="button" class="submit" value="Înregistrează-te" name="Register"/>
+                  <br />
+
+              }
+          </div>
+          <div class="sub-cont">
+              <div class="img">
+                  <div class="img__text">
+                      <h2>Ai deja un cont?</h2>
+                      <p>Loghează-te și bucură-te de toate funcționalitățile!</p>
+                  </div>
+                  <div class="img__btn">
+                      <span>
+                          <a href="/Account/Login" id="Login">Loghează-te</a>
+                      </span>
+
+                  </div>
+              </div>
+
+          </div>
+      </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

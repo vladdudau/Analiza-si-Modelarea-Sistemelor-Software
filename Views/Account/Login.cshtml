@@ -1,0 +1,68 @@
+﻿@using ProiectAnaliza.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Ne pare bine că ai ales să vizitezi site-ul nostru";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleLogin.css" media="screen" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100&display=swap" rel="stylesheet">
+</head>
+
+<br /><br />
+<p class="tip" style="font-family:'Raleway', sans-serif";><b>@ViewBag.Title.</b></p>
+<div class="cont">
+    <div class="form sign-in">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+           
+            <h2 style="font-family:'Raleway', sans-serif";><b>Daca ai deja un cont, loghează-te.</b></h2>
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <label>
+
+                <span class="credentiale">Email</span>
+                @Html.TextBoxFor(m => m.Email, new { @class = "input" })
+
+            </label>
+            <label>
+                <span class="credentiale">Parolă</span>
+                @Html.PasswordFor(m => m.Password, new { @class = "input" })
+            </label>
+
+
+
+           <br /><br />
+            <input type="submit" class="submit" value="Log In" name="Sign In" id="button" />
+        }
+        <div class="col-md-4">
+            <section id="socialLoginForm">
+                @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+            </section>
+        </div>
+    </div>
+    <div class="sub-cont">
+        <div class="img">
+            <div class="img__text">
+                <h2>Esti nou pe aici?</h2>
+                <p>Inregistreaza-te si devino cea mai buna versiune a ta!</p>
+            </div>
+            <div class="img__btn">
+                <span>
+                    <a href="/Account/Register" id="Register">Inregistreaza-te</a>
+                </span> 
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
