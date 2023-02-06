@@ -1,0 +1,26 @@
+﻿@model ProiectAnaliza.Models.Category
+@{
+    ViewBag.Title = "Editare tip antrenor";
+}
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleCategoryEdit.css" media="screen" />
+</head>
+
+<div class="cover">
+    <h1>Editează tipul de antrenor</h1>
+    <div class="flex-form">
+        <div>
+            <form method="post" action="/Category/Edit/@ViewBag.Category.CategoryId">
+                @Html.HttpMethodOverride(HttpVerbs.Put)
+                <input type="text" name="CategoryName" value="@ViewBag.Category.CategoryName" required />
+
+                <button type="submit">Salvează</button>
+
+            </form>
+            <button onclick="location.href='@Url.Action("Index", "Category")'" class="inapoi">Înapoi</button>
+        </div>
+    </div>
+</div>
+

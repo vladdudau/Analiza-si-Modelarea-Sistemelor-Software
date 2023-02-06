@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Afisare tipuri de antrenori";
+}
+
+
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleCategoryShow.css" media="screen" />
+</head>
+
+<div class="cover">
+    <h1>Categoria antrenorului</h1>
+    <div class="flex-form">
+        <div>
+        <form method="post" action="/Category/Delete/@ViewBag.Category.CategoryId">
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <input type="text" name="CategoryName" value="@ViewBag.Category.CategoryName" required />
+
+            <button type="submit">Șterge</button>
+        </form>
+        <button onclick="location.href='@Url.Action("Index", "Category")'" class="inapoi">Înapoi</button>
+         </div>
+    </div>
+
+</div>

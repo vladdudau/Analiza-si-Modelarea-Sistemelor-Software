@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Categorii de antrenori";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleListaCategorii.css" media="screen" />
+</head>
+
+<h2 id="titluCateg">@ViewBag.Title</h2>
+
+@if (TempData.ContainsKey("message"))
+{
+    <div>@ViewBag.message</div>
+}
+
+@foreach (var category in ViewBag.Categories)
+{
+    <p class="numeCategorie">@category.CategoryName</p>
+    <a class="btn btn-success" href="/Category/Show/@category.CategoryId">Afișare categorie</a>
+    <a class="btn btn-success" href="/Category/Edit/@category.CategoryId">Editare categorie</a>
+    <br />
+    <hr />
+    <br />
+}
+
+<br />
+<a class="btn btn-info" href="/Category/New">Adaugă o nouă categorie</a>

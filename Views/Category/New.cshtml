@@ -1,0 +1,26 @@
+﻿@model ProiectAnaliza.Models.Category
+@{
+    ViewBag.Title = "Adauga un tip de antrenor";
+
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleCategory.css" media="screen" />
+</head>
+
+
+<div class="cover">
+    <h1>Adaugă un nou tip de antrenor</h1>
+    <div class="flex-form">
+        @using (Html.BeginForm(actionName: "New", controllerName: "Category"))
+        {
+            @Html.TextBox("CategoryName", null, new { @class = "form-control" })
+            <button type="submit">Adaugă un nou tip de antrenor</button>
+        }
+    </div>
+    
+</div>
+
+
+
+
