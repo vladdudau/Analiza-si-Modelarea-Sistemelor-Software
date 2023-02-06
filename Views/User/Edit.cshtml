@@ -1,1 +1,61 @@
+﻿@model ProiectAnaliza.Models.ApplicationUser
 
+@{
+    /**/
+
+    ViewBag.Title = "Editare rol utilizator";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleUserEdit.css" media="screen" />
+</head>
+
+<div class="centru">
+    <h3 id="titluCateg">@ViewBag.Title</h3>
+
+
+    @using (Html.BeginForm(actionName: "Edit", controllerName: "User", routeValues: new { id = @Model.Id }))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Put)
+
+        <br />
+
+        <i class="glyphicon glyphicon-user titlu"></i>
+        @Html.Label("UserName", "Nume utilizator", new { @class = "titlu" })
+
+        <br />
+
+        @Html.EditorFor(m => m.UserName)
+
+        <br /><br />
+
+        <i class="glyphicon glyphicon-envelope titlu"></i>
+        @Html.Label("Email", "Email utilizator", new { @class = "titlu" })
+
+        <br />
+
+        @Html.EditorFor(m => m.Email)
+
+        <br /><br />
+
+        <i class="glyphicon glyphicon-phone titlu"></i>
+        @Html.Label("PhoneNumber", "Numar telefon", new { @class = "titlu" })
+
+        <br />
+
+        @Html.EditorFor(m => m.PhoneNumber)
+
+        <br /><br />
+
+        <i class="glyphicon glyphicon-th-list titlu"></i>
+        <label class="titlu">Selectati rolul</label>
+        <br />
+        @Html.DropDownList("newRole", new SelectList(Model.AllRoles, "Value", "Text", ViewBag.userRole), null, new { @class = "select" })
+        <br />
+        <br />
+
+        <button class="btn btn-sm btn-success" type="submit">Modifica datele utilizatorului</button>
+
+
+    }
+</div>

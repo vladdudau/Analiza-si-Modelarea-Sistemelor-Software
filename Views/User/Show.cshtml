@@ -1,0 +1,82 @@
+﻿@model ProiectAnaliza.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Detalii utilizator";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleUser.css" media="screen" />
+</head>
+
+<h3 id="titluCateg">@ViewBag.Title</h3>
+
+
+
+<hr class="mb-4">
+<div class="centru">
+<img class="imagine" style="height:250px" src="~/Content/Images/bubble-gum-man-having-workout-with-dumbbells.PNG" />
+<div class="numeCategorie">Nume utilizator: @Model.UserName</div>
+
+<div class="panel-body">
+    
+    <i class="glyphicon glyphicon-envelope titlu" style="color:white"></i> <span class="titlu" style="margin-left: 5px; margin-right: 8px;">Email utilizator: </span><span class="label label-default">@Model.Email</span>
+    <br /><br />
+    <i class="glyphicon glyphicon-th-list titlu" style="color:white"></i> <span class="titlu" style="margin-left: 5px; margin-right: 8px;">Rol utilizator: @ViewBag.roleName</span>
+
+    <br /><br />
+
+    @if (@Model.PhoneNumber != null)
+    {
+        <i class="glyphicon glyphicon-phone titlu"></i>@:<span class="titlu" style="margin-left: 5px; margin-right: 8px;">Telefon utilizator:</span><span class="label label-default">@Model.PhoneNumber</span>
+    }
+    
+</div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+    @if ((string)Model.Id != ViewBag.utilizatorCurent)
+    {
+            using (Html.BeginForm(actionName: "Delete", controllerName: "User", routeValues: new { id = @Model.Id }))
+            {
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <br />
+                <button class="btn btn-success" type="submit">Sterge utilizator</button>
+
+            }
+        
+    }
+
+</div>
+
+

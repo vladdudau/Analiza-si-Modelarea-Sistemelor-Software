@@ -1,0 +1,43 @@
+﻿@{
+
+    ViewBag.Title = "Afișare utilizatori";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleUser.css" media="screen" />
+</head>
+
+<h3 id="titluCateg">@ViewBag.Title</h3>
+<div class="centru">
+<img class="imagine" style="height:250px" src="~/Content/Images/casual-life-3d-young-man-working-at-desk.PNG" />
+    </div>
+    @foreach (var user in ViewBag.UserList)
+{
+    <hr class="mb-4">
+
+    <div class="numeCategorie">Nume utilizator: @user.UserName</div>
+
+    <div class="panel-body">
+
+        <i class="glyphicon glyphicon-envelope titlu" style="color:white;"></i><span class="titlu" style="margin-left: 5px; margin-right: 8px; color:white;"> Email utilizator:</span><span class="label label-default titlu">@user.Email</span>
+
+        <br /><br />
+
+        @if (@user.PhoneNumber != null)
+        {
+            <i class="glyphicon glyphicon-phone titlu" style="margin-right: 5px;"></i>@:<span class="titlu" style="margin-right: 8px; color:white;">Telefon utilizator:</span><span class="label label-default">@user.PhoneNumber</span>
+
+
+
+
+        }
+
+    </div>
+
+
+    <a class="btn btn-sm btn-success" href="/User/Edit/@user.Id"> Editare utilizator</a>
+    <a class="btn btn-sm btn-success" href="/User/Show/@user.Id"> Vizualizare utilizator</a>
+
+
+    <br /><br />
+}
