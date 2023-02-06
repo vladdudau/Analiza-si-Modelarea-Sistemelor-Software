@@ -1,0 +1,52 @@
+﻿
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleAbout.css" media="screen" />
+
+</head>
+    
+
+<div class="wrapper">
+    <div class="row">
+        <div class="image-section">
+            <img  src="~/Content/ProductImages/poza.PNG" />
+
+        </div>
+        <div class="content">
+            <h1>Despre noi</h1>
+            <p>
+                Never lose your hope, își propune să rezolve o problemă care a devenit din ce în ce mai frecventă în timpul pandemiei: supraponderabilitatea. Tot mai multe persoane se confruntă cu această problemă datorită sedentarității si comodității, lumea nu mai face mișcare, ceea ce este condamnabil. Așadar, platforma Never lose your hope, cum spune si titlul: “Să nu îți pierzi niciodată speranța” vine în ajutorul tuturor oamenilor si are scopul principal de a-i face pe aceștia sa ajungă în cea mai bună formă fizică si mentală.  Pentru o persoană căreia nu-i place să se antreneze în văzul lumii, aplicația  pune la dispoziție o serie de aparate și suplimente, care se pot comanda, pentru a se putea lucra de acasă. Totuși,cea mai mare parte din doritori are nevoie de îndrumare. Astfel platforma pune la dispoziție o serie de antrenori la care se poate efectua programări, rolul acestora fiind să ofere sfaturi în realizarea exercițiilor din sala de forță.
+            </p>
+            <h2>Contact: <span>neverloseyourhope04@gmail.com</span></h2>
+            <h1>Locație</h1>
+        </div>
+    </div>
+    
+    <div id="dvMap" style="height:200px;"></div>
+</div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAPqwy5NiBO3vv1eWAOSJc1iP9VcT1vCrI&callback=initMap" async defer></script>
+
+    <script type="text/javascript">
+        function initMap() {
+            //map..
+            var map = new google.maps.Map(document.getElementById('dvMap'), {
+                center: {
+                    lat: 46.630152,
+                    lng: 27.735450
+                },
+                zoom: 15
+            });
+            //marker..
+            var marker = new google.maps.Marker({
+                position: {
+                    lat: 46.630152,
+                    lng: 27.735450
+                },
+                map: map,
+              
+            });
+
+           
+        }
+    </script>
+

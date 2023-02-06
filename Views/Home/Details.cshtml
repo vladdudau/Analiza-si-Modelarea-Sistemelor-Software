@@ -1,0 +1,81 @@
+﻿@model ProiectAnaliza.Models.Product
+
+@{
+    ViewBag.Title = Model.Name + "Details";
+}
+
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/productDetails.css" media="screen" />
+</head>
+
+<div class="card">
+    <nav>
+        <svg class="arrow" version="1.1" viewBox="0 0 512 512" width="512px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><polygon points="352,115.4 331.3,96 160,256 331.3,416 352,396.7 201.5,256 " stroke="#727272" /></svg>
+        @Html.ActionLink("Inapoi la lista cu produse", "Index")
+    </nav>
+    <div class="photo">
+        <img src="~/Content/ProductImages/@Model.Image"/>
+    </div>
+    <div class="description">
+        <h2>@Html.DisplayFor(model => model.Name)</h2>
+        <h4>@Html.DisplayFor(model => model.Category)</h4>
+        <h1>@Html.DisplayFor(model => model.Price) lei</h1>
+        <p>@Html.DisplayFor(model => model.Description)</p>
+        
+        <button onclick="location.href='@Url.Action("AddToBasket", "Basket", new { Id = Model.Id })'">Adauga in cos</button>
+       
+    </div>
+</div>
+
+
+
+@*<h2>@Html.DisplayFor(model=>model.Name)</h2>
+
+<div>
+    
+    <img src="~/Content/ProductImages/@Model.Image" height="250px"/>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt></dt>
+        <dd>
+            <a href="@Url.Action("AddToBasket", "Basket", new { Id = Model.Id })" class="btn btn-default">Add to basket</a>
+        </dd>
+        <dt></dt>
+        <dd>@Html.ActionLink("Back to List", "Index")</dd> 
+    </dl>
+</div>
+<div class="col-md-12 clearfix"></div>
+
+*@
+

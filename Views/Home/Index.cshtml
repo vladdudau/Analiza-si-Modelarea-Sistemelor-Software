@@ -1,0 +1,118 @@
+﻿@model PagedList.IPagedList<ProiectAnaliza.Models.Product>
+@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Home Page";
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/Content/styleProductIndex.css" media="screen" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@1,100&display=swap" rel="stylesheet">
+</head>
+
+<script>
+    $(document).ready(function () {
+
+        $(document).on('keypress', function (e) {
+            if (e.which == 13 && $("#Text").val().length > 0) {
+                location.replace("/Home/Search?param=" + $("#Text").val());
+            }
+        });
+    });
+</script>
+<div class="divSortsiFilter">
+    <div class="allFilter">
+        <h4>Filtrare pe categorii</h4>
+        <div class="list-group">
+            <form method="get" action="/Home/Index" id="searchForm">
+                <select style="color: black;" name="filter" onchange="document.getElementById('searchForm').submit()">
+                    <option value="" style="color:black">Filtrează după</option>
+                    <option style="color: black;" value="All">@Html.ActionLink("All", "Index", null, new { })</option>
+
+                    @foreach (var cat in ViewBag.Categories)
+                    {
+
+                        String c = cat.Category;
+                        <option style="color: black;" value="@c" @(ViewBag.sort == c ? "selected" : "")>
+                            @Html.ActionLink(@c, "Index", new { Category = @cat.Category }, new { })
+                        </option>
+                    }
+
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <div class="allSort">
+        <form method="get" action="/Home/Index" id="sort">
+            <div class="input-group input-group-lg mb-5">
+
+                <div class="sortareAsezare input-group-prepend show">
+                    <select name="sort" class="selectSize btn btn-primary" onchange="document.getElementById('sort').submit()">
+                        <option value="" class="bg-white text-black">Sortează dupa</option>
+                        <option value="price-asc" @(ViewBag.sort == "price-asc" ? "selected" : "") class="bg-white text-black">Preț crescător</option>
+                        <option value="price-desc" @(ViewBag.sort == "price-desc" ? "selected" : "") class="bg-white text-black">Preț descrescator</option>
+                        <option value="name-asc" @(ViewBag.sort == "name-asc" ? "selected" : "") class="bg-white text-black">Nume crescător</option>
+                        <option value="name-desc" @(ViewBag.sort == "name-desc" ? "selected" : "") class="bg-white text-black">Nume descrescător</option>
+                    </select>
+                </div>
+
+
+
+            </div>
+        </form>
+    </div>
+
+
+    <br />
+    <input class="searchAsezare" id="Text" type="text" placeholder="Căutare..." style="height: 30px; width: 300px;" />
+</div>
+<section id="antrenori" class="sectiune-antrenori">
+    <h2 class="titlu">Produsele noastre</h2>
+    <div class="pro-container">
+        @foreach (var item in Model)
+        {
+
+        <div class="pro" onclick="location.href='/Home/Details/@item.Id'">
+
+
+
+            <img src="~/Content/ProductImages/@item.Image" alt="@item.Image" />
+
+
+            <div class="des">
+                <span>@item.Category</span>
+                <h5>@item.Name</h5>
+                <h1 class="pret">@item.Price lei</h1>
+            </div>
+
+
+            <a href="@Url.Action("AddToBasket", "Basket", new { Id = item.Id })" class="btn btn-default buton"><i class="fa-solid fa-cart-arrow-down"></i>Adaugă in coș</a>
+
+
+        </div>
+        }
+    </div>
+   
+    <div class="paginatie">
+        <br /><br />
+    Pagina @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) din @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sort = ViewBag.sort, currentFilter = ViewBag.CurrentFilter }))
+        </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
